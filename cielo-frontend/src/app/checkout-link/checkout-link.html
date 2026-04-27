@@ -1,0 +1,29 @@
+<mat-toolbar>
+  <button mat-icon-button> <mat-icon>menu</mat-icon> </button>
+  <span>My App</span>
+  <span class="spacer"></span>
+  @if (user) {
+  <button mat-button>
+    Logout <mat-icon>logout</mat-icon>
+  </button>
+  }
+
+</mat-toolbar>
+<mat-sidenav-container class="layout">
+  <mat-sidenav mode="side" opened>
+    <mat-list>
+      <mat-action-list role="list" aria-label="Post actions">
+        <button mat-list-item (click)="router.navigate(['/home'])">
+          <mat-icon matListItemIcon>home</mat-icon>
+          Home
+        </button>
+      </mat-action-list>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+
+
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

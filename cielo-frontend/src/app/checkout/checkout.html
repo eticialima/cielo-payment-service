@@ -1,0 +1,55 @@
+<div class="checkout-container">
+  <div *ngIf="loading" class="loading">
+    <mat-spinner></mat-spinner>
+    <p>Carregando...</p>
+  </div>
+
+  <div *ngIf="message" class="message">
+    <mat-card>
+      <p>{{ message }}</p>
+    </mat-card>
+  </div>
+
+  <div *ngIf="!loading && !message && checkoutData">
+    <mat-card class="checkout-card">
+      <h2>Checkout</h2>
+      <div class="amount">
+        <p>Valor: <strong>R$ {{ formatAmount(checkoutData.amount) }}</strong></p>
+      </div>
+
+      <div class="payment-methods">
+        <h3>Selecione o método de pagamento:</h3>
+
+        <button
+          class="method-btn pix"
+          (click)="selectMethod('pix')"
+          [class.selected]="selectedMethod === 'pix'">
+          PIX
+        </button>
+
+        <button
+          class="method-btn card"
+          (click)="selectMethod('credit_card')"
+          [class.selected]="selectedMethod === 'credit_card'">
+          Cartão de Crédito
+        </button>
+      </div>
+
+      <div *ngIf="selectedMethod === 'pix'" class="pix-component">
+        <app-payment-pix
+          [checkoutKey]="checkoutKey"
+          [amount]="checkoutData.amount"
+          (paymentSuccess)="onPaymentSuccess($event)">
+        </app-payment-pix>
+      </div>
+
+      <div *ngIf="selectedMethod === 'credit_card'" class="card-component">
+        <app-payment-card
+          [checkoutKey]="checkoutKey"
+          [amount]="checkoutData.amount"
+          (paymentSuccess)="onPaymentSuccess($event)">
+        </app-payment-card>
+      </div>
+    </mat-card>
+  </div>
+</div>
